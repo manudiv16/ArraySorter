@@ -102,8 +102,17 @@ public class IntArraySorter {
     /* --------------------PRIVATE METHODS----------------------- */
 
 
-    private int partition(int start,int end){
-    return  end;
+    private int partition(int left,int right){
+        int pivot = array[left];
+        while (true) {
+            while (array[left] < pivot) left++;
+            while (array[right] > pivot) right--;
+            if (left < right) {
+                swap(left,right);
+            }else {
+                return right;
+            }
+        }
     }
 
 

@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IntArraySorterTest {
-
+/*
     @Test
     void test_insertion_sort(){
         System.out.println("INSERTION SORT TEST: ");
@@ -126,6 +126,13 @@ class IntArraySorterTest {
         sorter.quickSort(0, sorter.getArrayLength());
         assertTrue(sorter.isSorted());
         printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
+    }*/
+    @Test
+    void bubblesortOrdened() {
+        int[] array = {8,1,4,9,6,3,5,2,7,0};
+        IntArraySorter intArraySorter = new IntArraySorter(array);
+        intArraySorter.quickSort();
+        assertTrue(intArraySorter.isSorted());
     }
 
     int[] initArray(int length, boolean reverse) {
