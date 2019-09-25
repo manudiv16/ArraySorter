@@ -102,15 +102,18 @@ public class IntArraySorter {
     /* --------------------PRIVATE METHODS----------------------- */
 
 
-    private int partition(int left,int right){
-        int pivot = array[left];
+    private int partition(int start,int end){
+        int pivotIndex = selectPivot(); //Selecciona el pivot amb el metode que sigui.
+        int pivot = array[pivotIndex];
+        swap(pivotIndex, end - 1); //Envia el pivot al final del segment i treballa desde start fins a end - 2
         while (true) {
-            while (array[left] < pivot) left++;
-            while (array[right] > pivot) right--;
+            int left = searchLeftItem(start, end); //Busca desde lesquerra un element mes gran que el pivot, retornan el index;
+            int right = searchRightItem(start, end); //Busca desde la dreta un element mes petit que el pivot, retorna el index;
             if (left < right) {
                 swap(left,right);
             }else {
-                return right;
+                swap(left, end - 1); //canvia el pivot per l'element que hi ha a left, que serà més gran que ell.
+                return left; //Retorna la posicio en la que es troba ara el pivot;
             }
         }
     }
