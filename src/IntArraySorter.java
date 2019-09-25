@@ -60,7 +60,7 @@ public class IntArraySorter {
         for (int i = 0; i < array.length + 1; i++) {
             int min = i;
             for (int j = 1 + i; j < array.length; j++) { // no tornar a veure els nombres mes petits
-                if (array[j] < array[min]) { // cerca numero mes petit
+                if (lessThanOrEqual(array[j],array[min])){ // cerca numero mes petit
                     min = j;
                 }
             }
@@ -99,14 +99,11 @@ public class IntArraySorter {
         }
     }
 
-    /* --------------------PRIVATE METHODS----------------------- */
-
-
     private int partition(int left,int right){
         int pivot = array[left];
         while (true) {
             while (array[left] < pivot) left++;
-            while (array[right] > pivot) right--;
+            while (pivot<array[right]) right--;
             if (left < right) {
                 swap(left,right);
             }else {

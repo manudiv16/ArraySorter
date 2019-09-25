@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-
+import java.util.concurrent.ThreadLocalRandom;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IntArraySorterTest {
@@ -127,28 +127,69 @@ class IntArraySorterTest {
         assertTrue(sorter.isSorted());
         printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
     }*/
+
     @Test
-    void bubblesortOrdened() {
-        int[] array = {8,1,4,9,6,3,5,2,7,0};
-        IntArraySorter intArraySorter = new IntArraySorter(array);
-        intArraySorter.quickSort();
-        assertTrue(intArraySorter.isSorted());
+    void test_quick_sort() {
+        System.out.println("QUICK SORT TEST: ");
+
+        System.out.println("Array ordenado: ");
+        IntArraySorter sorter = new IntArraySorter(randomArray(5000,1));
+        sorter.quickSort();
+        assertTrue(sorter.isSorted());
+        printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
+        /*
+        System.out.println("Array ordenado al revés: ");
+        sorter = new IntArraySorter(initArray(50, true));
+        sorter.quickSort(0, sorter.getArrayLength());
+        assertTrue(sorter.isSorted());
+        printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
+
+        System.out.println("Array poco desordenado: ");
+        sorter = new IntArraySorter(initArray(50, false));
+        sorter.fisherYatesShuffle(sorter.getArrayLength() / 3);
+        sorter.quickSort(0, sorter.getArrayLength());
+        assertTrue(sorter.isSorted());
+        printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
+
+        System.out.println("Array muy desordenado: ");
+        sorter = new IntArraySorter(initArray(50, false));
+        sorter.fisherYatesShuffle(sorter.getArrayLength());
+        sorter.quickSort(0, sorter.getArrayLength());
+        assertTrue(sorter.isSorted());
+        printResults(sorter.getNumComparisons(), sorter.getNumSwaps());
+
+         */
     }
 
-    int[] initArray(int length, boolean reverse) {
-        int[] array = new int[length];
-        if(reverse){
-            for (int i = array.length - 1; i >= 0; --i) {
-                array[array.length - 1 - i] = i;
-            }
-        }else{
-            for (int j = 0; j < array.length; ++j) {
-                array[j] = j;
-            }
+    int [] createArray (int n){
+        int[] array = new int[n];
+        for (int j = 0; j < array.length; ++j) {
+            array[j] = j;
         }
         return array;
     }
+    int [] reverseArray(int n){
+        int[] array = new int[n];
+        for (int i = array.length - 1; i >= 0; --i) {
+            array[array.length - 1 - i] = i;
+        }
+        return array;
+    }
+    int [] randomArray (int n,int difficult){
+        int[] array = createArray(n);
+        return fisherYatesShuffle(array,difficult);
+    }
 
+    int [] fisherYatesShuffle(int[] array,int difficult) {
+        int n = array.length/difficult;
+        for (int i = n - 1; i >= 0; --i) {
+            int j = ThreadLocalRandom.current().nextInt(array.length);
+            int tmp = array[i];
+            array[i] = array[j];
+            array[j] = tmp;
+        }
+        return array;
+    }
     void printResults(int numComparisons, int numSwaps){
         String output = String.format("%d comparaciones, %d swaps", numComparisons, numSwaps);
         System.out.println(output);
