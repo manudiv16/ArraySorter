@@ -107,8 +107,8 @@ public class IntArraySorter {
         int pivot = array[pivotIndex];
         swap(pivotIndex, end - 1); //Envia el pivot al final del segment i treballa desde start fins a end - 2
         while (true) {
-            int left = searchLeftItem(start, end); //Busca desde lesquerra un element mes gran que el pivot, retornan el index;
-            int right = searchRightItem(start, end); //Busca desde la dreta un element mes petit que el pivot, retorna el index;
+            int left = searchLeftItem(start, end - 1); //Busca desde lesquerra un element mes gran que el pivot, retornan el index;
+            int right = searchRightItem(start, end - 1); //Busca desde la dreta un element mes petit que el pivot, retorna el index;
             if (left < right) {
                 swap(left,right);
             }else {
