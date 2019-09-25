@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class IntArraySorter {
     private final int[] array;
@@ -13,9 +13,6 @@ public class IntArraySorter {
         return numSwaps;
     }
 
-    public int getArrayLength(){
-        return array.length;
-    }
     public IntArraySorter(int[] array) {
         this.array = array;
     }
@@ -41,6 +38,20 @@ public class IntArraySorter {
         return i1 <= i2;
     }
 
+    public void insertionSort() {
+        for (int s = 1; s < array.length; ++s) {
+            int insert = s;
+            for (int i = s - 1; i >= 0; i--) {
+                if (!lessThanOrEqual(array[i], array[insert])) {
+                    swap(i, insert);
+                    insert = i;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
     public void bubbleSort() {
         for (int s = 0; s < array.length; s++) {
             int swaps = numSwaps;
@@ -64,38 +75,64 @@ public class IntArraySorter {
         }
     }
 
-    public void quickSort(int start, int end) {
-        if (start < end) {
-            int pivot = partition(start, end);
-            quickSort(start, pivot);
-            quickSort(pivot + 1, end);
+    public void quickSort(){
+        int left = 0, right = array.length;
+        quickSort(left, right);
+    }
+
+    private void quickSort(int left, int right) {
+        if (left < right) {
+            int pivotPos = choosePivotPos(left, right);
+            int pivotValue = array[pivotPos];
+            swap(pivotPos, right - 1);
+            int pos = partition(pivotValue, left, right - 1);
+            swap(pos, right - 1);
+            quickSort(left, pos);
+            quickSort(pos + 1, right);
         }
     }
 
-    public void insertionSort() {
-        for (int s = 1; s < array.length; ++s) {
-            int insert = s;
-            for (int i = s - 1; i >= 0; i--) {
-                if (!lessThanOrEqual(array[i], array[insert])) {
-                    swap(i, insert);
-                    insert = i;
-                } else {
-                    break;
-                }
+    private int partition(int pivotValue, int left, int right) {
+        while (true) {
+            left = itemFromLeft(pivotValue, left, right);
+            right = itemFromRight(pivotValue, left, right);
+            if (left >= right) {
+                return left;
+            }
+            swap(left, right);
+        }
+    }
+
+    private int itemFromLeft(int pivot, int left, int right) {
+        for (int i = left; i < right; ++i) {
+            if (!lessThanOrEqual(array[i], pivot)) {
+                return i;
+            }
+        }
+        return right;
+    }
+
+    private int itemFromRight(int pivot, int left, int right) {
+        for (int i = right - 1; i >= left; --i) {
+            if (lessThanOrEqual(array[i], pivot)) {
+                return i;
+            }
+        }
+        return left;
+    }
+
+    //Shuffle Level has to be between 1 and 4;
+    public void fisherYatesShuffle(int shuffleLevel) {
+        if(shuffleLevel > 0 && shuffleLevel < 5){
+            int n = array.length/(5 - shuffleLevel);
+            for (int i = n - 1; i >= 0; --i) {
+                int j = new Random().nextInt(array.length);
+                int tmp = array[i];
+                array[i] = array[j];
+                array[j] = tmp;
             }
         }
     }
-
-    public void fisherYatesShuffle(int n) {
-        for (int i = n - 1; i >= 0; --i) {
-            int j = ThreadLocalRandom.current().nextInt(array.length);
-            int tmp = array[i];
-            array[i] = array[j];
-            array[j] = tmp;
-        }
-    }
-
-    /* --------------------PRIVATE METHODS----------------------- */
 
     private int findTheSmallest(int s) {
         int smallest = s;
@@ -107,49 +144,9 @@ public class IntArraySorter {
         return smallest;
     }
 
-     private int partition(int start, int end) {
-        //Choose a pivot and swap it to the end of the array.
-        int pivot = choosePivotAndSwap(start, end);
-        int leftItem = start, rightItem = end - 1;
-        while (true) {
-            //ItemFromLeft search an element bigger than pivot.
-            //ItemFromRight search an element smaller than pivot.
-            leftItem = itemFromLeft(pivot, leftItem, end - 1);
-            rightItem = itemFromRight(pivot, start, rightItem);
-            if (leftItem >= rightItem) {
-                //we swap the pivot to it's place.
-                swap(leftItem, end - 1);
-                return leftItem;
-            }
-            swap(leftItem, rightItem);
-        }
+    private int choosePivotPos(int left, int right){
+        return left + new Random().nextInt(right - left);
     }
 
-    private int itemFromLeft(int pivot, int start, int end) {
-        for (int i = start; i < end; ++i) {
-            if (!lessThanOrEqual(array[i], pivot)) {
-                return i;
-            }
-        }
-        return end;
-    }
-
-    private int itemFromRight(int pivot, int start, int end) {
-        for (int i = end - 1; i >= start; --i) {
-            if (lessThanOrEqual(array[i], pivot)) {
-                return i;
-            }
-        }
-        return start;
-    }
-
-    private int choosePivotAndSwap(int start, int end) {
-        int index = ThreadLocalRandom.current().nextInt(start, end);
-        int pivot = array[index];
-        swap(index, end - 1);
-        return pivot;
-    }
 }
-
-
 
