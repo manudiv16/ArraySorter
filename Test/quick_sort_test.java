@@ -20,8 +20,7 @@ class quick_sort_test {
 
     @Test
     void array_poco_desordenado() {
-        IntArraySorter sorter;
-        sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
         sorter.fisherYatesShuffle(2);
         sorter.quickSort();
         assertTrue(sorter.isSorted());

@@ -12,16 +12,14 @@ class insertionSortTest {
 
     @Test
     public void array_del_reves() {
-        IntArraySorter sorter;
-        sorter = new IntArraySorter(arrayInit.initReversedArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initReversedArray(50));
         sorter.insertionSort();
         assertTrue(sorter.isSorted());
     }
 
     @Test
     public void array_poco_desordenado() {
-        IntArraySorter sorter;
-        sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
         sorter.fisherYatesShuffle(2);
         sorter.insertionSort();
         assertTrue(sorter.isSorted());
@@ -29,8 +27,7 @@ class insertionSortTest {
 
     @Test
     public void array_muy_desordenado() {
-        IntArraySorter sorter;
-        sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
         sorter.fisherYatesShuffle(4);
         sorter.insertionSort();
         assertTrue(sorter.isSorted());
