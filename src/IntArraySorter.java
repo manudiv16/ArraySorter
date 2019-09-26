@@ -94,8 +94,8 @@ public class IntArraySorter {
 
     private int partition(int pivotValue, int left, int right) {
         while (true) {
-            left = itemFromLeft(pivotValue, left, right);
-            right = itemFromRight(pivotValue, left, right);
+            left = itemFromLeftPos(pivotValue, left, right);
+            right = itemFromRightPos(pivotValue, left, right);
             if (left >= right) {
                 return left;
             }
@@ -103,7 +103,7 @@ public class IntArraySorter {
         }
     }
 
-    private int itemFromLeft(int pivot, int left, int right) {
+    private int itemFromLeftPos(int pivot, int left, int right) {
         for (int i = left; i < right; ++i) {
             if (!lessThanOrEqual(array[i], pivot)) {
                 return i;
@@ -112,7 +112,7 @@ public class IntArraySorter {
         return right;
     }
 
-    private int itemFromRight(int pivot, int left, int right) {
+    private int itemFromRightPos(int pivot, int left, int right) {
         for (int i = right - 1; i >= left; --i) {
             if (lessThanOrEqual(array[i], pivot)) {
                 return i;

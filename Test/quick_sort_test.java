@@ -6,21 +6,21 @@ class quick_sort_test {
 
     @Test
     void array_ordenado() {
-        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(2000));
         sorter.quickSort();
         assertTrue(sorter.isSorted());
     }
 
     @Test
     void array_ordenado_al_reves() {
-        IntArraySorter sorter = new IntArraySorter(arrayInit.initReversedArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initReversedArray(2000));
         sorter.quickSort();
         assertTrue(sorter.isSorted());
     }
 
     @Test
     void array_poco_desordenado() {
-        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(2000));
         sorter.fisherYatesShuffle(2);
         sorter.quickSort();
         assertTrue(sorter.isSorted());
@@ -28,7 +28,7 @@ class quick_sort_test {
 
     @Test
     void muy_desordenado() {
-        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(50));
+        IntArraySorter sorter = new IntArraySorter(arrayInit.initArray(2000));
         sorter.fisherYatesShuffle(4);
         sorter.quickSort();
         assertTrue(sorter.isSorted());
