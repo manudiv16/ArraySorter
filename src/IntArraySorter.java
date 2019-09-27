@@ -121,17 +121,14 @@ public class IntArraySorter {
         return left;
     }
 
-    //Shuffle Level has to be between 1 and 4;
-    public void fisherYatesShuffle(int shuffleLevel) {
-        if(shuffleLevel > 0 && shuffleLevel < 5){
-            int n = array.length/(5 - shuffleLevel);
-            for (int i = n - 1; i >= 0; --i) {
-                int j = new Random().nextInt(array.length);
+
+    public void fisherYatesShuffle(int n) {
+            for (int i = 0; i < n; ++i) {
+                int j = new Random().nextInt(n);
                 int tmp = array[i];
                 array[i] = array[j];
                 array[j] = tmp;
             }
-        }
     }
 
     private int findTheSmallest(int s) {

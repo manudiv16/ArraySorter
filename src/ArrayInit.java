@@ -1,4 +1,6 @@
-public class arrayInit {
+import java.util.Random;
+
+public class ArrayInit {
     public static int[] initArray(int length) {
         int[] array = new int[length];
         for (int j = 0; j < array.length; ++j) {
