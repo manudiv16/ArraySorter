@@ -1,6 +1,6 @@
 
 public class IntArraySorterCharts {
-    private int[] array = ArrayInit.initArray(50);
+    private int[] array = ArrayInit.initArray(1500);
     private ChartCreator chart;
     private IntArraySorter sorter;
     private double[][] bubbleSortData = new double[2][array.length];

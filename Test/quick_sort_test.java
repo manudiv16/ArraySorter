@@ -27,7 +27,7 @@ class quick_sort_test {
     }
 
     @Test
-    void muy_desordenado() {
+    void array_muy_desordenado() {
         IntArraySorter sorter = new IntArraySorter(ArrayInit.initArray(50));
         sorter.fisherYatesShuffle(50);
         sorter.quickSort();
