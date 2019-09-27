@@ -11,11 +11,13 @@ import java.io.IOException;
 
 public class ChartCreator {
     private String chartTitle;
-    private String YAxis;
+    private String Yaxis;
+    private String Xaxis;
 
-    public ChartCreator(String chartTitle, String Yaxis){
+    public ChartCreator(String chartTitle, String Yaxis, String Xaxis){
         this.chartTitle = chartTitle;
-        this.YAxis = Yaxis;
+        this.Yaxis = Yaxis;
+        this.Xaxis = Xaxis;
     }
 
     public void createChart(double[][] bubbleSortData, double[][] insertionSortData, double[][] selectionSortData, double[][] qsData) {
@@ -27,7 +29,7 @@ public class ChartCreator {
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true,  false);
         setRenderSettings(renderer);
-        JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, "SHUFFLE LEVEL", YAxis, dataset);
+        JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, Xaxis, Yaxis, dataset);
         chart.getXYPlot().setRenderer(renderer);
 
         BufferedImage image = chart.createBufferedImage(1200, 700);
