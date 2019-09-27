@@ -1,7 +1,5 @@
-import java.util.Random;
-
-public class ArrayInit {
-    public static int[] initArray(int length) {
+public class ArrayBuilder {
+    public static int[] buildArray(int length) {
         int[] array = new int[length];
         for (int j = 0; j < array.length; ++j) {
             array[j] = j;
@@ -9,7 +7,7 @@ public class ArrayInit {
         return array;
     }
 
-    public static int[] initReversedArray(int length) {
+    public static int[] buildReversedArray(int length) {
         int[] array = new int[length];
         for (int i = array.length - 1; i >= 0; --i) {
             array[array.length - 1 - i] = i;

@@ -1,7 +1,7 @@
 
 public class IntArraySorterCharts {
     private final int numValues = 200;
-    private int[] array = ArrayInit.initArray(numValues);
+    private int[] array = ArrayBuilder.buildArray(numValues);
     private ChartCreator chart;
     private IntArraySorter sorter;
     private double[][] bubbleSortSwaps = new double[2][numValues];
@@ -69,7 +69,7 @@ public class IntArraySorterCharts {
     }
 
     private void shuffle(int shuffleLevel, int arrayLength) {
-        array = ArrayInit.initArray(arrayLength);
+        array = ArrayBuilder.buildArray(arrayLength);
         sorter = new IntArraySorter(array);
         sorter.fisherYatesShuffle(shuffleLevel);
     }
