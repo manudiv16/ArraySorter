@@ -8,19 +8,32 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
-public class ChartCreator {
+/** This class allows us to build linear charts from a set of 2D double arrays. */
+public class LinearChartBuilder {
     private String chartTitle;
-    private String Yaxis;
-    private String Xaxis;
+    private String YAxis;
+    private String XAxis;
 
-    public ChartCreator(String chartTitle, String Yaxis, String Xaxis){
+    /**
+     * Creates a LinearChartBuilder with the specified title, YAxis and XAxis name.
+     * @param chartTitle The chart title.
+     * @param YAxis The YAxis name.
+     * @param XAxis The XAxis name.
+     */
+    public LinearChartBuilder(String chartTitle, String YAxis, String XAxis){
         this.chartTitle = chartTitle;
-        this.Yaxis = Yaxis;
-        this.Xaxis = Xaxis;
+        this.YAxis = YAxis;
+        this.XAxis = XAxis;
     }
 
-    public void createChart(double[][] bubbleSortData, double[][] insertionSortData, double[][] selectionSortData, double[][] qsData) {
+    /**
+     * Creates the linear chart and creates a .png image that contains it.
+     * @param bubbleSortData Contains the data to plot the bubble sort results.
+     * @param insertionSortData Contains the data to plot the insertion sort results.
+     * @param selectionSortData Contains the data to plot the selection sort results.
+     * @param qsData Contains the data to plot the quick sort results.
+     */
+    public void buildLinearChart(double[][] bubbleSortData, double[][] insertionSortData, double[][] selectionSortData, double[][] qsData) {
         DefaultXYDataset dataset = new DefaultXYDataset();
         dataset.addSeries("Bubble sort", bubbleSortData);
         dataset.addSeries("Insertion sort", insertionSortData);
@@ -29,14 +42,14 @@ public class ChartCreator {
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true,  false);
         setRenderSettings(renderer);
-        JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, Xaxis, Yaxis, dataset);
+        JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, XAxis, YAxis, dataset);
         chart.getXYPlot().setRenderer(renderer);
 
         BufferedImage image = chart.createBufferedImage(1200, 700);
-        createImage(image, chartTitle);
+        buildImage(image, chartTitle);
     }
 
-    private void createImage(BufferedImage image, String chartTitle){
+    private void buildImage(BufferedImage image, String chartTitle){
         try {
             ImageIO.write(image, "png", new File(chartTitle + ".png"));
         } catch (IOException exc) {

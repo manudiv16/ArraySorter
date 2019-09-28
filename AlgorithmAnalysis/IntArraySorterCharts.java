@@ -1,5 +1,7 @@
+/**
+ *This class runs the sort algorithms in some ways and plot the results in charts.
+ */
 public class IntArraySorterCharts {
-    private ChartCreator chart;
     private final int xAxisMaxValues = 200;
     private int xAxisValue;
     private int shuffleGrade;
@@ -16,51 +18,61 @@ public class IntArraySorterCharts {
     private double[][] selectionSortComps = new double[2][xAxisMaxValues];
     private double[][] quickSortComps = new double[2][xAxisMaxValues];
 
+    /**
+     * Runs the sort algorithms increasing the array shuffle grade from 0 to array.length (XAxisMaxValues).
+     * Set the array length constant.
+     * Creates the charts from the results.
+     */
     private void shuffleGradeChart() {
         array = ArrayBuilder.buildArray(xAxisMaxValues);
-        for (shuffleGrade = 0; shuffleGrade < array.length; ++shuffleGrade) {
+        for (shuffleGrade = 0; shuffleGrade < xAxisMaxValues; ++shuffleGrade) {
             xAxisValue = shuffleGrade;
-            testBubbleSortAndStore(shuffleGrade, array.length, xAxisValue);
-            testInsertionSortAndStore(shuffleGrade, array.length, xAxisValue);
-            testSelectionSortAndStore(shuffleGrade, array.length, xAxisValue);
-            testQuickSortAndStore(shuffleGrade, array.length, xAxisValue);
+            testBubbleSortAndStoreResults(shuffleGrade, array.length, xAxisValue);
+            testInsertionSortAndStoreResults(shuffleGrade, array.length, xAxisValue);
+            testSelectionSortAndStoreResults(shuffleGrade, array.length, xAxisValue);
+            testQuickSortAndStoreResults(shuffleGrade, array.length, xAxisValue);
         }
         buildLinealCharts("Shuffle Grade");
     }
 
+    /**
+     * Runs the sort algorithms increasing the array length from 0 to XAxisMaxValues .
+     * Set the shuffle grade constant.
+     * Creates the charts from the results.
+     */
     private void lengthGradeChart(){
         for (int arrayLength = 0; arrayLength < xAxisMaxValues; ++arrayLength) {
             xAxisValue = arrayLength;
             shuffleGrade = arrayLength;
-            testBubbleSortAndStore(shuffleGrade, arrayLength, xAxisValue);
-            testInsertionSortAndStore(shuffleGrade, arrayLength, xAxisValue);
-            testSelectionSortAndStore(shuffleGrade, arrayLength, xAxisValue);
-            testQuickSortAndStore(shuffleGrade, arrayLength, xAxisValue);
+            testBubbleSortAndStoreResults(shuffleGrade, arrayLength, xAxisValue);
+            testInsertionSortAndStoreResults(shuffleGrade, arrayLength, xAxisValue);
+            testSelectionSortAndStoreResults(shuffleGrade, arrayLength, xAxisValue);
+            testQuickSortAndStoreResults(shuffleGrade, arrayLength, xAxisValue);
         }
         buildLinealCharts("Array length");
     }
 
-    private void testBubbleSortAndStore(int shuffleGrade, int arrayLength, int XAxisData){
+    private void testBubbleSortAndStoreResults(int shuffleGrade, int arrayLength, int XAxisData){
         buildSorterAndShuffle(shuffleGrade, arrayLength);
         sorter.bubbleSort();
         addValues(bubbleSortSwaps, XAxisData, sorter.getNumSwaps());
         addValues(bubbleSortComps, XAxisData, sorter.getNumComparisons());
     }
 
-    private void testInsertionSortAndStore(int shuffleGrade, int arrayLength, int XAxisData){
+    private void testInsertionSortAndStoreResults(int shuffleGrade, int arrayLength, int XAxisData){
         buildSorterAndShuffle(shuffleGrade, arrayLength);
         sorter.insertionSort();
         addValues(insertionSortSwaps, XAxisData, sorter.getNumSwaps());
         addValues(insertionSortComps, XAxisData, sorter.getNumComparisons());
     }
-    private void testSelectionSortAndStore(int shuffleGrade, int arrayLength, int XAxisData){
+    private void testSelectionSortAndStoreResults(int shuffleGrade, int arrayLength, int XAxisData){
         buildSorterAndShuffle(shuffleGrade, arrayLength);
         sorter.selectionSort();
         addValues(selectionSortSwaps, XAxisData, sorter.getNumSwaps());
         addValues(selectionSortComps, XAxisData, sorter.getNumComparisons());
     }
 
-    private void testQuickSortAndStore(int shuffleGrade, int arrayLength, int XAxisData) {
+    private void testQuickSortAndStoreResults(int shuffleGrade, int arrayLength, int XAxisData) {
         buildSorterAndShuffle(shuffleGrade, arrayLength);
         sorter.quickSort();
         addValues(quickSortSwaps, XAxisData, sorter.getNumSwaps());
@@ -68,10 +80,10 @@ public class IntArraySorterCharts {
     }
 
     private void buildLinealCharts(String xAxisName){
-        chart = new ChartCreator("Num Swaps by " + xAxisName, "Swaps", xAxisName);
-        chart.createChart(bubbleSortSwaps, insertionSortSwaps, selectionSortSwaps, quickSortSwaps);
-        chart = new ChartCreator("Num Comparisons by " + xAxisName, "Comparisons", xAxisName);
-        chart.createChart(bubbleSortComps, insertionSortComps, selectionSortComps, quickSortComps);
+        LinearChartBuilder chart = new LinearChartBuilder("Num Swaps by " + xAxisName, "Swaps", xAxisName);
+        chart.buildLinearChart(bubbleSortSwaps, insertionSortSwaps, selectionSortSwaps, quickSortSwaps);
+        chart = new LinearChartBuilder("Num Comparisons by " + xAxisName, "Comparisons", xAxisName);
+        chart.buildLinearChart(bubbleSortComps, insertionSortComps, selectionSortComps, quickSortComps);
     }
 
     private void addValues(double[][] array, int x, int y) {
