@@ -144,6 +144,52 @@ public class IntArraySorter {
     private int choosePivotPos(int left, int right){
         return left + new Random().nextInt(right - left);
     }
+    //----------------------------------------radixsort--------------------------------------------------------------------
+    public void radix() {
+        int n = 1;
+        int d = modMax();
+        for (int i = 0; i < d; i++) {
+            countsort(n);
+            n = n * 10;
+        }
+
+
+    }
+
+    private int modMax() {
+        int max = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
+            }
+        }
+        int n = 10;
+        int count = 1;
+        while (max>0){
+            max=max/10;
+            count++;
+        }
+        return count;
+    }
+
+    private void countsort(int n) {
+        int[] orden = new int[array.length];
+        int[] count = new int[10];
+        for (int value : array) {
+            count[(value / n) % 10]++;
+        }
+        for (int i=1; i<count.length; i++) {
+            count[i] += count[i-1];
+        }
+        for (int i=array.length-1;i>=0;i--) {
+            orden[count[((array[i])/n)%10]-1] = array[i];
+            count[((array[i])/n)%10]--;
+        }
+
+        System.arraycopy(orden, 0, array, 0, array.length);
+
+
+    }
 
 }
 
