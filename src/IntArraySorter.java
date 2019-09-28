@@ -123,12 +123,12 @@ public class IntArraySorter {
 
 
     public void fisherYatesShuffle(int n) {
-            for (int i = 0; i < n; ++i) {
-                int j = new Random().nextInt(n);
-                int tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
-            }
+        for (int i = 0; i < n; ++i) {
+            int j = new Random().nextInt(n);
+            int tmp = array[i];
+            array[i] = array[j];
+            array[j] = tmp;
+        }
     }
 
     private int findTheSmallest(int s) {
@@ -143,6 +143,64 @@ public class IntArraySorter {
 
     private int choosePivotPos(int left, int right){
         return left + new Random().nextInt(right - left);
+    }
+
+
+    /*-------------RADIX SORT--------------*/
+
+    private boolean maxDigitLengthReached = false;
+
+    public void radixSort(){
+        int n = 1;
+        while(!maxDigitLengthReached){
+            countSort(n);
+            n *= 10;
+        }
+    }
+
+    private void countSort(int n){
+        maxDigitLengthReached = true;
+        int[] sorted = new int[array.length];
+        int[] buckets = new int[10];
+
+        count(buckets, n);
+        if(!maxDigitLengthReached){
+            sumCount(buckets);
+            sort(buckets, sorted, n);
+            copyArray(sorted);
+        }
+    }
+
+    private void count(int[] buckets, int n){
+        for(int i = 0; i< array.length;++i) {
+            int value = array[i] / n;
+            if (value > 0) {
+                maxDigitLengthReached = false;
+            }
+            int digit = value % 10;
+            buckets[digit] += 1;
+        }
+    }
+
+    private void sumCount(int[] buckets){
+        for(int i = 1; i < buckets.length; ++i){
+            buckets[i] += buckets[i - 1];
+        }
+    }
+
+    private void sort(int[] buckets, int[] sorted, int n){
+        for(int i = array.length - 1; i >= 0; --i){
+            int digit = (array[i]/n)%10;
+            int pos = buckets[digit] - 1;
+            sorted[pos] = array[i];
+            buckets[digit] -= 1;
+        }
+    }
+
+    private void copyArray(int[] sorted){
+        for(int i = 0; i< array.length;++i){
+            array[i] = sorted[i];
+        }
     }
 
 }
