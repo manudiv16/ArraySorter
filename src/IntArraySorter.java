@@ -1,3 +1,4 @@
+//Author: Pedro R.
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IntArraySorter {
